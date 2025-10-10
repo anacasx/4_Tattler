@@ -12,7 +12,7 @@ let restaurantsCollection;
 async function connectDB() {
   try {
     await client.connect();
-    const db = client.db('tattlerDB');
+    const db = client.db('tattler');
     restaurantsCollection = db.collection('restaurants');
     console.log('✅ Connected to MongoDB (routes)');
   } catch (error) {
