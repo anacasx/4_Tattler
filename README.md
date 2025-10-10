@@ -3,8 +3,9 @@ A platform to provide personalized restaurant recommendations using MongoDB to s
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/your-username/tattler-restaurant-directory.git`
-2. Install MongoDB locally or use MongoDB Atlas.
-3. Run data import scripts: `node scripts/import.js`
+2. Install dependencies: `npm install`
+3. Set up MongoDB (local or Atlas) and update `.env` with your connection string.
+4. Run the server: `npm start`
 
 ## Repository Structure
 - /data: MongoDB backup files and CSV data
