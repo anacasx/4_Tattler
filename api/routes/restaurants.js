@@ -1,30 +1,33 @@
+// Import required modules
 const express = require('express');
 const router = express.Router();
 const { MongoClient, ObjectId } = require('mongodb');
 require('dotenv').config();
 
+// MongoDB URI from environment variables
 const uri = process.env.MONGODB_URI;
 const client = new MongoClient(uri);
 
 let restaurantsCollection;
 
-// Conectamos a MongoDB al cargar la ruta
+// ================== DATABASE CONNECTION ==================
+// Connect to MongoDB when the route file is loaded
 async function connectDB() {
   try {
     await client.connect();
     const db = client.db('tattler');
     restaurantsCollection = db.collection('restaurants');
-    console.log('✅ Connected to MongoDB (routes)');
+    console.log('Connected to MongoDB (routes)');
   } catch (error) {
-    console.error('❌ MongoDB connection error (routes):', error);
+    console.error('MongoDB connection error (routes):', error);
   }
 }
 
 connectDB();
 
-// ================== RUTAS ==================
+// ================== ROUTES ==================
 
-// GET /restaurants → todos los restaurantes
+// GET /restaurants → Get all restaurants
 router.get('/', async (req, res) => {
   try {
     const restaurants = await restaurantsCollection.find().toArray();
@@ -34,7 +37,7 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET /restaurants/:id → restaurante por ID
+// GET /restaurants/:id → Get a single restaurant by ID
 router.get('/:id', async (req, res) => {
   try {
     const restaurant = await restaurantsCollection.findOne({ _id: new ObjectId(req.params.id) });
@@ -45,14 +48,20 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// POST /restaurants → agregar nuevo restaurante
+// POST /restaurants → Add a new restaurant
 router.post('/', async (req, res) => {
   try {
     const { name, cuisine, location, rating } = req.body;
+
+    // Validate required fields
     if (!name || !cuisine || !location) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
+
+    // Create new restaurant object
     const newRestaurant = { name, cuisine, location, rating: parseFloat(rating) || 0, comments: [] };
+
+    // Insert into collection
     const result = await restaurantsCollection.insertOne(newRestaurant);
     res.status(201).json({ id: result.insertedId, ...newRestaurant });
   } catch (error) {
@@ -60,18 +69,25 @@ router.post('/', async (req, res) => {
   }
 });
 
-// POST /restaurants/:id/reviews → agregar review
+// POST /restaurants/:id/reviews → Add a review to a restaurant
 router.post('/:id/reviews', async (req, res) => {
   try {
     const { userId, comment } = req.body;
+
+    // Validate required fields
     if (!userId || !comment) {
       return res.status(400).json({ error: 'Missing required fields' });
     }
+
+    // Create review object
     const review = { userId, comment, date: new Date() };
+
+    // Add review to restaurant's comments array
     const result = await restaurantsCollection.updateOne(
       { _id: new ObjectId(req.params.id) },
       { $push: { comments: review } }
     );
+
     if (result.matchedCount === 0) return res.status(404).json({ error: 'Restaurant not found' });
     res.status(201).json({ message: 'Review added', review });
   } catch (error) {
@@ -79,20 +95,24 @@ router.post('/:id/reviews', async (req, res) => {
   }
 });
 
-// PUT /restaurants/:id → actualizar restaurante
+// PUT /restaurants/:id → Update a restaurant
 router.put('/:id', async (req, res) => {
   try {
     const { name, cuisine, location, rating } = req.body;
+
+    // Prepare fields to update
     const updateFields = {};
     if (name) updateFields.name = name;
     if (cuisine) updateFields.cuisine = cuisine;
     if (location) updateFields.location = location;
     if (rating) updateFields.rating = parseFloat(rating);
 
+    // Update restaurant in collection
     const result = await restaurantsCollection.updateOne(
       { _id: new ObjectId(req.params.id) },
       { $set: updateFields }
     );
+
     if (result.matchedCount === 0) return res.status(404).json({ error: 'Restaurant not found' });
     res.status(200).json({ message: 'Restaurant updated' });
   } catch (error) {
@@ -100,7 +120,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// DELETE /restaurants/:id → eliminar restaurante
+// DELETE /restaurants/:id → Delete a restaurant
 router.delete('/:id', async (req, res) => {
   try {
     const result = await restaurantsCollection.deleteOne({ _id: new ObjectId(req.params.id) });
@@ -111,4 +131,5 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+// Export the router to be used in main server file
 module.exports = router;

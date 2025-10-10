@@ -7,11 +7,13 @@
 
 - Issue: Endpoints are not responding the way they should
 
-Se revisó el codigo y el ednpoint estaba mal direccionado
+Solution:
+Code was reviewed and the endpoint was misdirected.
+
 
 - Issue: POST /restaurants returns "500 Internal error"
 
 
 ## Reviewer
 Name: Xóchitl Cabañas (self-review)
-Date: October 9, 2025
+Date: October 10, 2025
