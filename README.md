@@ -7,11 +7,12 @@ A platform to provide personalized restaurant recommendations using MongoDB to s
 3. Run data import scripts: `node scripts/import.js`
 
 ## Repository Structure
+```bash
 4_Tattler/
 ├── data/
 │   ├── restaurants.csv
 │   ├── backup/
-│   |   ├── restaurants.bson
+│   |   └── restaurants.bson
 ├── scripts/
 │   ├── import.js
 ├── screenshots/
@@ -19,6 +20,6 @@ A platform to provide personalized restaurant recommendations using MongoDB to s
 │   ├── indexes.png
 │   ├── import_output.png
 ├── README.md
-
+```
 ## Version
 Current version: 1.0.0 (Initial database setup with schema)
