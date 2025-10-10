@@ -8,9 +8,24 @@ A platform to provide personalized restaurant recommendations using MongoDB to s
 4. Run the server: `npm start`
 
 ## Repository Structure
-- /data: MongoDB backup files and CSV data
-- /scripts: Data import scripts
-- /screenshots: Database and import screenshots
+```bash
+tattler-api/
+├── api/
+│   ├── routes/
+│   │   └── restaurants.js
+├── data/
+│   ├── backup/ (from Sprint 1)
+│   │   └── restaurants.bson
+├── scripts/
+│   └── import.js (from Sprint 1)
+├── tests/
+├── .env
+├── .gitignore
+├── package.json
+├── README.md
+├── server.js
+└── peer_review.md
+```
 
 ## Version
-Current version: 1.0.0 (Initial database setup with schema)
+Current version: 1.2.2 
