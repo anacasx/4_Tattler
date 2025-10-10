@@ -9,7 +9,7 @@ A platform to provide personalized restaurant recommendations using MongoDB to s
 
 ## Repository Structure
 ```bash
-tattler-api/
+4_Tattler/
 ├── api/
 │   ├── routes/
 │   │   └── restaurants.js
@@ -19,6 +19,11 @@ tattler-api/
 ├── scripts/
 │   └── import.js (from Sprint 1)
 ├── tests/
+│   ├── delete.png
+│   ├── get_all.png
+│   ├── get_borough.png
+│   ├── get_cuisine.png
+│   └── get_fieldValidation.png
 ├── .env
 ├── .gitignore
 ├── package.json
@@ -28,4 +33,5 @@ tattler-api/
 ```
 
 ## Version
-Current version: 1.2.2 
+- 1.1.0 (Sprint 2): Added RESTful API with CRUD endpoints for restaurants.
+- 1.0.0 (Sprint 1): Initial database setup and data import.
