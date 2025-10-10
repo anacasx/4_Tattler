@@ -2,7 +2,7 @@
 A platform to provide personalized restaurant recommendations using MongoDB to store data in a schema with address, cuisine, grades, and comments, and Express.js for a RESTful API.
 
 ## Installation
-1. Clone the repository: `git clone https://github.com/anacas/4_Tattler.git`
+1. Clone the repository: `git clone https://github.com/anacasx/4_Tattler.git`
 2. Install MongoDB locally or use MongoDB Atlas.
 3. Run data import scripts: `node scripts/import.js`
 
