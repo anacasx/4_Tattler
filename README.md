@@ -32,6 +32,12 @@ A platform to provide personalized restaurant recommendations using MongoDB to s
 └── peer_review.md
 ```
 
+## API Endpoints
+### Sprint 3
+- GET /restaurants/search?q=query: Search restaurants by name or cuisine.
+- GET /restaurants/filter?city=CityName&rating=4: Filter by city and minimum rating.
+- GET /restaurants?sort=rating: Sort restaurants by rating or name.
+
 ## Version
 - 1.1.0 (Sprint 2): Added RESTful API with CRUD endpoints for restaurants.
 - 1.0.0 (Sprint 1): Initial database setup and data import.
