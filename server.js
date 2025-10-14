@@ -1,51 +1,29 @@
-// Import required modules
+// server.js (o app.js)
 const express = require('express');
 const { MongoClient } = require('mongodb');
-require('dotenv').config();
+const { router: restaurantsRouter, setRestaurantsCollection } = require('./api/routes/restaurants');
 
-// Initialize Express app
 const app = express();
-
-// Middleware: allows the server to parse JSON request bodies
 app.use(express.json());
 
-// Get MongoDB URI from environment variables
-const uri = process.env.MONGODB_URI;
+const mongoUri = process.env.MONGODB_URI || 'mongodb://localhost:27017';
+const dbName = 'tattler';
+const client = new MongoClient(mongoUri, { useUnifiedTopology: true });
 
-// Create a new MongoDB client instance
-const client = new MongoClient(uri);
+async function start() {
+  await client.connect();
+  const db = client.db(dbName);
+  const restaurantsCollection = db.collection('restaurants');
 
-// Asynchronous function to connect to MongoDB
-async function connectDB() {
-  try {
-    // Attempt to connect to the MongoDB server
-    await client.connect();
-    console.log('Connected to MongoDB');
-  } catch (error) {
-    // Log an error if the connection fails
-    console.error('MongoDB connection error:', error);
-  }
+  // Inyecta la colección en el router
+  setRestaurantsCollection(restaurantsCollection);
+
+  app.use('/restaurants', restaurantsRouter);
+
+  const port = process.env.PORT || 3000;
+  app.listen(port, () => console.log(`Server listening on ${port}`));
 }
-
-// Call the connection function
-connectDB();
-
-// Select the database and collection
-const db = client.db('tattler');
-const restaurantsCollection = db.collection('restaurants');
-
-// Import restaurant routes
-const restaurantRoutes = require('./api/routes/restaurants');
-
-// Use the restaurant routes under the '/restaurants' path
-app.use('/restaurants', restaurantRoutes);
-
-// Test route to check if the API is running
-app.get('/', (req, res) => {
-  res.send('API running');
-});
-
-// Start the server on the port defined in the .env file
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+start().catch(err => {
+  console.error('Failed to start server:', err);
+  process.exit(1);
 });
