@@ -39,6 +39,7 @@ A platform to provide personalized restaurant recommendations using MongoDB to s
 - GET /restaurants?sort=rating: Sort restaurants by rating or name.
 
 ## Version
+- 1.2.1 (Sprint 3): Fixed 400 error in GET /restaurants/:id, updated sorting to use average score.
 - 1.2.0 (Sprint 3): Added search, filtering, and sorting endpoints.
 - 1.1.0 (Sprint 2): Implemented RESTful API with CRUD endpoints.
 - 1.0.0 (Sprint 1): Initial database setup and data import.

@@ -1,6 +1,6 @@
 {
   "name": "4_tattler",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "A platform to provide personalized restaurant recommendations using MongoDB to store data in a schema with address, cuisine, grades, and comments, and Express.js for a RESTful API.",
   "main": "index.js",
   "scripts": {
