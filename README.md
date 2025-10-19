@@ -19,11 +19,17 @@ A platform to provide personalized restaurant recommendations using MongoDB to s
 ├── scripts/
 │   └── import.js (from Sprint 1)
 ├── tests/
-│   ├── delete.png
-│   ├── get_all.png
-│   ├── get_borough.png
-│   ├── get_cuisine.png
-│   └── get_fieldValidation.png
+│   ├── sprint2/
+│   │   ├── delete.png
+│   │   ├── get_all.png
+│   │   ├── get_borough.png
+│   │   ├── get_cuisine.png
+│   │   └── get_fieldValidation.png
+│   ├── sprint3/
+│   │   ├── get_byId.png
+│   │   ├── get_filter.png
+│   │   ├── get_search.png
+│   │   └── get_sorting.png
 ├── .env
 ├── .gitignore
 ├── package.json
